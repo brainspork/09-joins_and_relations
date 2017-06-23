@@ -49,7 +49,7 @@ app.post('/articles', function(request, response) {
 
   function queryTwo() {
     client.query(
-      `SELECT author_id FROM authors WHERE authors=$1`, // done: Write a SQL query to retrieve the author_id from the authors table for the new article
+      `SELECT author_id FROM authors WHERE author=$1`, // done: Write a SQL query to retrieve the author_id from the authors table for the new article
       [request.body.author], // done: Add the author name as data for the SQL query
       function(err, result) {
         if (err) console.error(err)
@@ -88,7 +88,7 @@ app.put('/articles/:id', function(request, response) {
       `UPDATE articles
       SET title=$1, category=$2, "publishedOn"=$3, body=$4, author_id=$5
       WHERE article_id = $6`,
-      [request.body.title, request.body.category, request.body.publishedOn, request.body.body, request.body.author_id, request.body.article_id]
+      [request.body.title, request.body.category, request.body.publishedOn, request.body.body, request.body.author_id, request.params.article_id]
     )
   })
   .then(function() {
